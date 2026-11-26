@@ -26,7 +26,7 @@ export const updateMyProfile = mutation({
 
     const updates: {
       name?: string;
-      email?: string;
+      email?: string | undefined;
       updatedAt: number;
     } = {
       updatedAt: Date.now(),
@@ -48,8 +48,7 @@ export const updateMyProfile = mutation({
 
     if (args.email !== undefined) {
       if (args.email === null) {
-        // Convex removes an optional field when it is patched with undefined.
-        updates.email = undefined as unknown as string;
+        updates.email = undefined;
       } else {
         const email = args.email.trim();
 
@@ -64,7 +63,7 @@ export const updateMyProfile = mutation({
           throw new Error("Enter a valid email address");
         }
 
-        updates.email = email || undefined as unknown as string;
+        updates.email = email || undefined;
       }
     }
 
